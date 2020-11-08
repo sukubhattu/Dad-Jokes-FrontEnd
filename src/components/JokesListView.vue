@@ -9,7 +9,11 @@
         color="indigo"
         dark
       >
-        <p class="mb-0">{{ joke.punchLine }}</p>
+        <p class="mb-0">
+          <router-link :to="{ name: 'Detail', params: { id: joke.id } }">{{
+            joke.punchLine
+          }}</router-link>
+        </p>
       </v-alert>
     </div>
     <div v-else>
@@ -29,11 +33,12 @@ export default {
       jokes: [],
     };
   },
+
   mounted() {
     axios
       .get("http://localhost:8000/api/v1/")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.jokes = res.data;
       })
       .catch((err) => {
