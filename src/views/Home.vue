@@ -9,6 +9,7 @@
 // Import create component and list component
 import CreateJoke from "../components/CreateJoke.vue";
 import JokesListView from "../components/JokesListView.vue";
+
 export default {
   components: {
     CreateJoke,

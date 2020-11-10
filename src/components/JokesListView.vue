@@ -1,49 +1,31 @@
 <template>
   <div>
-    <div v-if="jokes && jokes.length">
-      <v-alert
-        v-for="joke in jokes"
-        :key="joke.id"
-        class="px-16 py-8 mb-4"
-        border="left"
-        color="indigo"
-        dark
-      >
-        <p class="mb-0">
-          <router-link :to="{ name: 'Detail', params: { id: joke.id } }">{{
-            joke.punchLine
-          }}</router-link>
-        </p>
-      </v-alert>
+    <div v-if="listJokes.length">
+      <ul v-for="joke in listJokes" :key="joke.index">
+        {{
+          joke.punchLine
+        }}
+      </ul>
     </div>
-    <div v-else>
-      <v-alert border="left" color="red" dark>
-        <p class="mb-0">Sorry No Jokes in DB</p>
-      </v-alert>
-    </div>
+    <div v-else><p>No jokes to show</p></div>
   </div>
 </template>
 
 <script>
-// Import axios
-import axios from "axios";
+// Import helpers from vuex
+import { mapActions, mapGetters } from "vuex";
 export default {
-  data: () => {
-    return {
-      jokes: [],
-    };
+  computed: {
+    ...mapGetters(["listJokes"]),
   },
-
+  watch: {
+    ...mapGetters(["listJokes"]),
+  },
+  methods: {
+    ...mapActions(["getJokes"]),
+  },
   mounted() {
-    axios
-      .get("http://localhost:8000/api/v1/")
-      .then((res) => {
-        // console.log(res.data);
-        this.jokes = res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.getJokes();
   },
 };
 </script>
