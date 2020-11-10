@@ -23,7 +23,7 @@ export default {
     EditJoke() {
       let id = this.$route.params.id;
       axios
-        .put(`http://localhost:8000/api/v1/${id}/`, { punchLine: this.joke })
+        .put(`api/v1/${id}/`, { punchLine: this.joke })
         .then(() => {
           console.log(this.joke);
           this.$router.push({ name: "Home" });
@@ -38,7 +38,7 @@ export default {
     let id = this.$route.params.id;
     // console.log(id);
     axios
-      .get(`http://localhost:8000/api/v1/${id}`)
+      .get(`api/v1/${id}`)
       .then((res) => {
         // console.log(res.data);
         this.joke = res.data.punchLine;
